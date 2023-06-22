@@ -1,0 +1,27 @@
+version: 0.1
+
+phases:
+  install:
+    commands:
+      - echo installing nodejs...
+      - cd ~
+      - curl -sL https://deb.nodesource.com/setup_18.x -o /tmp/nodesource_setup.sh
+      - nano /tmp/nodesource_setup.sh
+      - sudo bash /tmp/nodesource_setup.sh
+      - sudo apt install nodejs
+      - echo installing yarn...
+      - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+      - apt install --no-install-recommends yarn
+  pre_build:
+    commands:
+      - echo installing dependencies...
+      - npm install
+  build:
+    commands:
+      - echo building...
+      - npm run build
+artifacts:
+  files:
+    - "**/*"
+  discard-paths: no
+  base-directory: build
